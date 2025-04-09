@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NSA Covert Communication Protocol (NCCP)</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <button class="toggle-btn" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+  <button class="expand-btn" onclick="toggleAllSections()">Expand/Collapse All</button>
+  <header>NSA Covert Communication Protocol (NCCP)</header>
+  <nav>
+    <a href="#overview" onclick="navigateAndExpand(event, 'overview')">Overview</a>
+    <a href="#architecture" onclick="navigateAndExpand(event, 'architecture')">Architecture</a>
+    <a href="#handshake" onclick="navigateAndExpand(event, 'handshake')">Handshake</a>
+    <a href="#mechanisms" onclick="navigateAndExpand(event, 'mechanisms')">Stealth Mechanisms</a>
+    <a href="#usecases" onclick="navigateAndExpand(event, 'usecases')">Use Cases</a>
+    <a href="#detection" onclick="navigateAndExpand(event, 'detection')">Detection</a>
+  </nav>
+  <div class="content">
+    <section id="overview" class="collapsible">
+      <h2 onclick="toggleSection(this)">1. Overview</h2>
+      <div class="collapsible-content">
+        <p>The NSA Covert Communication Protocol (NCCP) is a fictional stealth-layer protocol operating beneath visible application protocols but above physical transmission methods. It is imagined to be hidden within legitimate-looking fields and timing channels.</p>
+      </div>
+    </section>
+    <section id="architecture" class="collapsible">
+      <h2 onclick="toggleSection(this)">2. Protocol Architecture</h2>
+      <div class="collapsible-content">
+        <p>Includes the packet structure, encapsulation layers, payload encryption, and timing modulation strategies. Covert data is encrypted, obfuscated, and embedded inside application-layer protocols like TLS, HTTP, and DNS.</p>
+        <pre><code>
++------------------------------------------------------------+
+| NCCP Header (variable length, 16–64 bytes)                 |
++------------------------------------------------------------+
+| Covert Payload (encrypted, flexible length)                |
++------------------------------------------------------------+
+| Integrity/Timing Signature (4–8 bytes)                     |
++------------------------------------------------------------+
+	</code></pre>
+        <img src="packet_structure_diagram.png" alt="Packet Structure Diagram" class="diagram" />
+      </div>
+    </section>
+    <section id="handshake" class="collapsible">
+      <h2 onclick="toggleSection(this)">3. Handshake & Session Establishment</h2>
+      <div class="collapsible-content">
+        <p>Hidden inside TLS extensions and using ephemeral key exchange.</p>
+        <pre><code>def initiate_nccp_handshake(server_ip):
+    tls_hello = generate_tls_client_hello()
+    covert_key = generate_ephemeral_key()
+    encoded = encode_covert_info(covert_key)
+    tls_hello.extensions['unknown_248'] = encoded
+    send_with_delay(wrap_tls_packet(tls_hello), modulation='sync_pattern')</code></pre>
+        <img src="handshake_sequence_diagram.png" alt="Handshake Sequence" class="diagram" />
+      </div>
+    </section>
+    <section id="mechanisms" class="collapsible">
+      <h2 onclick="toggleSection(this)">4. Stealth Mechanisms</h2>
+      <div class="collapsible-content">
+        <ul>
+          <li>Timing Modulation</li>
+          <li>Encrypted Padding & Header Randomization</li>
+          <li>Protocol Mimicry</li>
+          <li>Multi-layer Encryption</li>
+          <li>Hardware-Embedded Persistence</li>
+        </ul>
+      </div>
+    </section>
+    <section id="usecases" class="collapsible">
+      <h2 onclick="toggleSection(this)">5. Use Cases (Fictional)</h2>
+      <div class="collapsible-content">
+        <ul>
+          <li>Covert Surveillance</li>
+          <li>Stealth Command and Control</li>
+          <li>Counterintelligence Operations</li>
+        </ul>
+      </div>
+    </section>
+    <section id="detection" class="collapsible">
+      <h2 onclick="toggleSection(this)">6. Detection and Countermeasures</h2>
+      <div class="collapsible-content">
+        <ul>
+          <li>Deep Packet Inspection (DPI)</li>
+          <li>Entropy and Timing Analysis</li>
+          <li>Heuristic Detection Models</li>
+          <li>Hardware Behavior Monitoring</li>
+        </ul>
+        <img src="detection_timeline.png" alt="Detection Techniques Timeline" class="diagram" />
+      </div>
+    </section>
+  </div>
+
+  <script>
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      content.style.display = content.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function toggleDarkMode() {
+      const root = document.documentElement;
+      if (root.classList.contains('light')) {
+        root.classList.remove('light');
+      } else {
+        root.classList.add('light');
+      }
+    }
+
+    function navigateAndExpand(event, sectionId) {
+      event.preventDefault();
+      const section = document.getElementById(sectionId);
+      const content = section.querySelector('.collapsible-content');
+      if (content.style.display !== 'block') {
+        content.style.display = 'block';
+      }
+      window.location.hash = sectionId;
+    }
+
+    function toggleAllSections() {
+      const sections = document.querySelectorAll('.collapsible-content');
+      const shouldExpand = Array.from(sections).some(s => s.style.display !== 'block');
+      sections.forEach(s => s.style.display = shouldExpand ? 'block' : 'none');
+    }
+  </script>
+</body>
+</html>
